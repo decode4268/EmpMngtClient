@@ -1,0 +1,10 @@
+Step 1: Create a new project with : ng new empmng --standalone=false
+
+Step 2: Folder setup : 
+        Inside app : 
+                - Components => Which will contains all the Components inside here 
+                - guards => which will prevent the routes access. 
+                - helpers => All the helpers services are inside here. 
+                - interceptos => Token interceptos, loader interceptos .... etc are here. 
+                - models => All the helping interfaces are here . 
+                - services => All the http services are loacated inside here. 
