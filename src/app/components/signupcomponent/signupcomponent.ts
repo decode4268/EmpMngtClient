@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { first } from 'rxjs';
@@ -11,7 +11,7 @@ import ValidateForm from '../../helpers/ValidateForm';
   templateUrl: './signupcomponent.html',
   styleUrl: './signupcomponent.css',
 })
-export class Signupcomponent {
+export class Signupcomponent implements OnInit{
 
   type: string = 'password';
   isText: boolean = false;
@@ -48,7 +48,7 @@ export class Signupcomponent {
       console.log('Save Data', this.signupform.value);
       this.authService.signup(this.signupform.value).subscribe({
         next: (res) => {
-          alert(res.message)
+          alert(res.message) // Use model popup to show the response msg.
           this.signupform.reset(); 
           this.router.navigate(['login']);
         },

@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 })
 export class AuthService {
 
-  private baseUrl: string = 'https://localhost:7255/api/User/';
+  private baseUrl: string = 'https://localhost:7268/api/User/';
   // private userPayload : any;
   constructor(private httpClient: HttpClient, private router: Router) {
 
@@ -18,7 +18,7 @@ export class AuthService {
   }
 
   login(loginObj: any) {
-    return this.httpClient.post<any>(`${this.baseUrl}register`, loginObj);
+    return this.httpClient.post<any>(`${this.baseUrl}authenticate`, loginObj);
   }
 
 }
