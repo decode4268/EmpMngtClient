@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import ValidateForm from '../../helpers/ValidateForm';
+import { UserStoreService } from '../../services/user-store.service';
 
 @Component({
   selector: 'app-logincomponent',
@@ -17,7 +18,7 @@ export class Logincomponent implements OnInit {
 
   loginForm!: FormGroup;
   constructor(private fb: FormBuilder, private auth: AuthService,
-    private router: Router
+    private router: Router, private userStore : UserStoreService
   ) {}
 
   ngOnInit(): void {
@@ -39,6 +40,13 @@ export class Logincomponent implements OnInit {
         next: (res)=> {
           this.loginForm.reset();
           console.log("Login api response", res);
+          this.auth.storeToken(res.accessToken);
+          this.auth.storeRefreshToken(res.refreshToken);
+
+          const tokenPayload = this.auth.decodeToken();
+          this.userStore.setFullnameFromStore(tokenPayload.name);
+          this.userStore.setRoleFromStore(tokenPayload.role);
+          // on success login navigate to the route on component;
         }, 
         error : (err) => {
           console.log(err);
