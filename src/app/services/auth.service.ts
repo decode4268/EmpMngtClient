@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import {JwtHelperService} from '@auth0/angular-jwt'
 
 @Injectable({
   providedIn: 'root',
@@ -48,14 +49,12 @@ export class AuthService {
   }
   
   decodeToken(){
-    const jwtHelper = new this.JwtHelperService();
+    const jwtHelper = new JwtHelperService();
     const token = this.getToken()!; // ! for null check
     console.log(jwtHelper.decodeToken(token));
     return jwtHelper.decodeToken(token);
   }
 
-  /* Some Confusion here need to clarify in next session 
-  */
   getFullNameFromToken(){
     if(this.userPayload){
       return this.userPayload.name;

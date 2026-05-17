@@ -16,6 +16,9 @@ export class Logincomponent implements OnInit {
   isText: boolean = false;
   eyeIcon: string = 'fa-eye-slash'
 
+  public resetPasswordEmail! : string; 
+  public isValidEmail! : boolean;
+
   loginForm!: FormGroup;
   constructor(private fb: FormBuilder, private auth: AuthService,
     private router: Router, private userStore : UserStoreService
@@ -47,6 +50,7 @@ export class Logincomponent implements OnInit {
           this.userStore.setFullnameFromStore(tokenPayload.name);
           this.userStore.setRoleFromStore(tokenPayload.role);
           // on success login navigate to the route on component;
+          // this.router.navigate(['']);
         }, 
         error : (err) => {
           console.log(err);
@@ -59,4 +63,10 @@ export class Logincomponent implements OnInit {
       alert("Form is not valid!");
     }
   }
+
+  checkValidEmail(event : string){
+    const value = event; 
+    const pattern = '';
+  }
+
 }
