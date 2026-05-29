@@ -53,7 +53,7 @@ export class Logincomponent implements OnInit {
           this.userStore.setFullnameFromStore(tokenPayload.name);
           this.userStore.setRoleFromStore(tokenPayload.role);
           // on success login navigate to the route on component;
-          // this.router.navigate(['']);
+          this.router.navigate(['/home']);
         }, 
         error : (err) => {
           console.log(err);

@@ -7,9 +7,20 @@ import { Logincomponent } from './components/logincomponent/logincomponent';
 import { Signupcomponent } from './components/signupcomponent/signupcomponent';
 import { Resetcomponent } from './components/resetcomponent/resetcomponent';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { Home } from './components/home/home';
+import { LoaderComponent } from './shared/loader-component/loader-component';
+import { NavComponent } from './shared/components/nav-component/nav-component';
 
 @NgModule({
-  declarations: [App,Logincomponent, Signupcomponent, Resetcomponent],
+  declarations: [
+    App,
+    Logincomponent,
+    Signupcomponent,
+    Resetcomponent,
+    Home,
+    LoaderComponent,
+    NavComponent,
+  ],
   imports: [BrowserModule, AppRoutingModule, ReactiveFormsModule, FormsModule],
   providers: [provideBrowserGlobalErrorListeners()],
   bootstrap: [App],

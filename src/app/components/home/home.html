@@ -1,0 +1,165 @@
+
+   <app-nav></app-nav>
+   <!-- ================= MAIN CONTENT ================= -->
+ 
+    <div class="main-container container-fluid">
+ 
+        <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+ 
+            <h1 class="page-title">Job Details</h1>
+ 
+            <!-- Button trigger modal -->
+            <button class="add-btn" data-bs-toggle="modal" data-bs-target="#jobModal">
+                <i class="fa-solid fa-plus"></i> Add New Job
+            </button>
+ 
+        </div>
+ 
+        <!-- ================= TABLE ================= -->
+ 
+        <div class="table-card">
+ 
+            <div class="table-responsive">
+ 
+                <table class="table table-bordered align-middle text-center">
+ 
+                    <thead>
+                        <tr>
+                            <th>Position</th>
+                            <th>Location</th>
+                            <th>Status</th>
+                            <th>CTC</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+ 
+                    <tbody>
+ 
+                        <tr>
+                            <td>Frontend Developer</td>
+                            <th>
+                                <select class="form-select">
+                                    <option selected disabled>Select Location</option>
+                                    <option>Noida</option>
+                                    <option>Delhi</option>
+                                    <option>Gurgaon</option>
+                                    <option>Mumbai</option>
+                                    <option>Bangalore</option>
+                                </select>
+                            </th>
+                            <td>
+                                <span class="badge bg-success">Active</span>
+                            </td>
+                            <td>5 LPA</td>
+                            <td>
+                                <button class="action-btn edit-btn">
+                                    <i class="fa-solid fa-pen"></i> Edit
+                                </button>
+ 
+                                <button class="action-btn delete-btn">
+                                    <i class="fa-solid fa-trash"></i> Delete
+                                </button>
+                            </td>
+                        </tr>
+ 
+                        <tr>
+                            <td>Backend Developer</td>
+                            <th>
+                                <select class="form-select">
+                                    <option selected disabled>Select Location</option>
+                                    <option>Noida</option>
+                                    <option>Delhi</option>
+                                    <option>Gurgaon</option>
+                                    <option>Mumbai</option>
+                                    <option>Bangalore</option>
+                                </select>
+                            </th>
+                            <td>
+                                <span class="badge bg-warning text-dark">Pending</span>
+                            </td>
+                            <td>6 LPA</td>
+                            <td>
+                                <button class="action-btn edit-btn">
+                                    <i class="fa-solid fa-pen"></i> Edit
+                                </button>
+ 
+                                <button class="action-btn delete-btn">
+                                    <i class="fa-solid fa-trash"></i> Delete
+                                </button>
+                            </td>
+                        </tr>
+ 
+                    </tbody>
+ 
+                </table>
+ 
+            </div>
+ 
+        </div>
+ 
+    </div>
+ 
+    <!-- ================= MODAL ================= -->
+ 
+    <div class="modal fade" id="jobModal" tabindex="-1">
+ 
+        <div class="modal-dialog modal-dialog-centered">
+ 
+            <div class="modal-content">
+ 
+                <div class="modal-header">
+                    <h5 class="modal-title">Add New Job</h5>
+ 
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+ 
+                <div class="modal-body">
+ 
+                    <form>
+ 
+                        <div class="mb-3">
+                            <label class="form-label">Job Title</label>
+                            <input type="text" class="form-control" placeholder="Enter Job Title">
+                        </div>
+ 
+                        <div class="mb-3">
+                            <label class="form-label">Location</label>
+                            <input type="text" class="form-control" placeholder="Enter Location">
+                        </div>
+ 
+                        <div class="mb-3">
+                            <label class="form-label">Status</label>
+ 
+                            <select class="form-select">
+                                <option>Active</option>
+                                <option>Pending</option>
+                                <option>Closed</option>
+                            </select>
+                        </div>
+ 
+                        <div class="mb-3">
+                            <label class="form-label">CTC</label>
+                            <input type="text" class="form-control" placeholder="Enter Salary">
+                        </div>
+ 
+                    </form>
+ 
+                </div>
+ 
+                <div class="modal-footer">
+ 
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        Cancel
+                    </button>
+ 
+                    <button type="button" class="btn btn-success">
+                        Save Job
+                    </button>
+ 
+                </div>
+ 
+            </div>
+ 
+        </div>
+ 
+    </div>
