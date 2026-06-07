@@ -41,17 +41,33 @@ export class Logincomponent implements OnInit {
   }
 
   onLogin(){
+    debugger
     if(this.loginForm.valid){
       this.auth.login(this.loginForm.value).subscribe({
         next: (res)=> {
           this.loginForm.reset();
           console.log("Login api response", res);
-          this.auth.storeToken(res.accessToken);
-          this.auth.storeRefreshToken(res.refreshToken);
+          // this.auth.storeToken(res.accessToken);
+          // this.auth.storeRefreshToken(res.refreshToken);
 
-          const tokenPayload = this.auth.decodeToken();
+          const tokenPayload = this.auth.decodeToken(res.accessToken);
+          // this.userStore.setFullnameFromStore(tokenPayload.name);
+          // this.userStore.setRoleFromStore(tokenPayload.role);
+
+          // Build a single object to store
+          const userSession = {
+            accessToken: res.accessToken,
+            refreshToken: res.refreshToken,
+            fullname: tokenPayload.name, // or URI if using ClaimTypes
+            role: tokenPayload.role
+          };
+
+          // Save to localStorage
+          localStorage.setItem("userSession", JSON.stringify(userSession));
           this.userStore.setFullnameFromStore(tokenPayload.name);
           this.userStore.setRoleFromStore(tokenPayload.role);
+          // on success login navigate to the route on component;
+          this.router.navigate(['/home']);
           // on success login navigate to the route on component;
           this.router.navigate(['/home']);
         }, 

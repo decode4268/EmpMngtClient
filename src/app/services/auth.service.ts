@@ -48,9 +48,14 @@ export class AuthService {
     this.router.navigate(['login']);
   }
   
-  decodeToken(){
+  // decodeToken(){
+  //   const jwtHelper = new JwtHelperService();
+  //   const token = this.getToken()!; // ! for null check
+  //   console.log(jwtHelper.decodeToken(token));
+  //   return jwtHelper.decodeToken(token);
+  // }
+   decodeToken(token: any){
     const jwtHelper = new JwtHelperService();
-    const token = this.getToken()!; // ! for null check
     console.log(jwtHelper.decodeToken(token));
     return jwtHelper.decodeToken(token);
   }

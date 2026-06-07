@@ -6,7 +6,7 @@ export class AuthGuard {
   constructor(private router: Router) { }
 
   canActivate(): boolean {
-    const authResponse = localStorage.getItem('token');
+    const authResponse = localStorage.getItem("userSession");
     if (authResponse) {
       return true; // logged in
     }
