@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { LoaderService } from '../../shared/helperService/loader-service';
+import { ApiService } from '../../services/api.service';
 
 @Component({
   selector: 'app-home',
@@ -8,7 +9,8 @@ import { LoaderService } from '../../shared/helperService/loader-service';
   styleUrl: './home.css',
 })
 export class Home {
-  constructor(private $loader: LoaderService) { }
+  constructor(private $loader: LoaderService,
+    private apiService: ApiService) { }
 
   loadLoader(): void {
     this.$loader.show();
@@ -16,4 +18,5 @@ export class Home {
       this.$loader.hide();
     }, 5000);
   }
+
 }

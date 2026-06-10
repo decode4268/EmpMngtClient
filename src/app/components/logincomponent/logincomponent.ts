@@ -17,20 +17,20 @@ export class Logincomponent implements OnInit {
   isText: boolean = false;
   eyeIcon: string = 'fa-eye-slash'
 
-  public resetPasswordEmail! : string; 
-  public isValidEmail! : boolean;
+  public resetPasswordEmail!: string;
+  public isValidEmail!: boolean;
 
   loginForm!: FormGroup;
 
   constructor(private fb: FormBuilder, private auth: AuthService,
-    private router: Router, private userStore : UserStoreService, 
-    private resetPasswordService : ResetPasswordService
-  ) {}
+    private router: Router, private userStore: UserStoreService,
+    private resetPasswordService: ResetPasswordService
+  ) { }
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
-      username: ['', Validators.required], 
-      password : ['', Validators.required]
+      username: ['', Validators.required],
+      password: ['', Validators.required]
     });
   }
 
@@ -40,21 +40,13 @@ export class Logincomponent implements OnInit {
     this.isText ? (this.type = 'text') : (this.type = 'password');
   }
 
-  onLogin(){
+  onLogin() {
     debugger
-    if(this.loginForm.valid){
+    if (this.loginForm.valid) {
       this.auth.login(this.loginForm.value).subscribe({
-        next: (res)=> {
+        next: (res) => {
           this.loginForm.reset();
-          console.log("Login api response", res);
-          // this.auth.storeToken(res.accessToken);
-          // this.auth.storeRefreshToken(res.refreshToken);
-
           const tokenPayload = this.auth.decodeToken(res.accessToken);
-          // this.userStore.setFullnameFromStore(tokenPayload.name);
-          // this.userStore.setRoleFromStore(tokenPayload.role);
-
-          // Build a single object to store
           const userSession = {
             accessToken: res.accessToken,
             refreshToken: res.refreshToken,
@@ -69,43 +61,43 @@ export class Logincomponent implements OnInit {
           // on success login navigate to the route on component;
           this.router.navigate(['/home']);
           // on success login navigate to the route on component;
-          this.router.navigate(['/home']);
-        }, 
-        error : (err) => {
+          // this.router.navigate(['/home']);
+        },
+        error: (err) => {
           console.log(err);
           alert(err?.error.message);
         }
       })
     }
-    else{
+    else {
       ValidateForm.validateAllFormFields(this.loginForm);
       alert("Form is not valid!");
     }
   }
 
-  checkValidEmail(event : any){
+  checkValidEmail(event: any) {
     const value = event;
     const pattern = /^[\w\-\.]+@([\w\-]+\.)+[\w\-]{2,3}$/;
     this.isValidEmail = pattern.test(value);
     return this.isValidEmail;
   }
 
-  confirmToSend(){
-    if(this.checkValidEmail(this.resetPasswordEmail)){
+  confirmToSend() {
+    if (this.checkValidEmail(this.resetPasswordEmail)) {
       // api call to send the forget password link to user 
 
       this.resetPasswordService.sendResetPasswordLink(this.resetPasswordEmail)
         .subscribe({
-          next:(resp) => {
+          next: (resp) => {
             alert("Reset Password link sent to your email!");
             this.resetPasswordEmail = "";
             const closeButton = document.getElementById('closeBtn');
             closeButton?.click();
-          }, 
+          },
           error: (err) => {
             alert(err);
             console.log("error ", err);
-            
+
           }
         })
     }
