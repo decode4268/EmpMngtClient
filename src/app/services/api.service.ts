@@ -10,8 +10,12 @@ export class ApiService {
   constructor(private http: HttpClient) { }
 
 
-  getJobLocation() {
-    // this.http.get<any>(this.baseUrl +"JobDetails/GetJobLocation");
-    this.http.get<any>(`${this.baseUrl}JobDetails/GetJobLocation`);
+  // getJobLocation() {
+  //   // this.http.get<any>(this.baseUrl +"JobDetails/GetJobLocation");
+  //   this.http.get<any>(`${this.baseUrl}JobDetails/GetJobLocation`);
+  // }
+
+   getJobLocation() {
+    return this.http.get<[]>(`${this.baseUrl}JobDetails/GetJobLocation`);
   }
 }
