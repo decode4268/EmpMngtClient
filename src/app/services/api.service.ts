@@ -15,7 +15,11 @@ export class ApiService {
   //   this.http.get<any>(`${this.baseUrl}JobDetails/GetJobLocation`);
   // }
 
-   getJobLocation() {
+  getJobLocation() {
     return this.http.get<[]>(`${this.baseUrl}JobDetails/GetJobLocation`);
+  }
+
+  addNewJob(data: any) {
+    return this.http.post<any>(`${this.baseUrl}JobDetails/AddNewJob`, data);
   }
 }
