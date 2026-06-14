@@ -1,6 +1,5 @@
 <app-nav></app-nav>
-<!-- ================= MAIN CONTENT ================= -->
-
+<!-- Add New Job s -->
 <div class="main-container container-fluid">
 
     <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
@@ -14,14 +13,10 @@
 
     </div>
 
-    <!-- ================= TABLE ================= -->
-
+    <!-- Grid View -->
     <div class="table-card">
-
         <div class="table-responsive">
-
             <table class="table table-bordered align-middle text-center">
-
                 <thead>
                     <tr>
                         <th>Position</th>
@@ -38,9 +33,13 @@
                         <td>Frontend Developer</td>
                         <th>
                             <select class="form-select">
-                                <option selected disabled>Select Location</option>
-                                <option [value]="item?.value" *ngFor="let item of jobLocationRes"> {{item.value}}
+                                <option selected value="" disabled>Select Location</option>
+
+                                @for (item of jobLocationRes(); track item.value) {
+                                <option [value]="item.value">
+                                    {{ item.value }}
                                 </option>
+                                }
                             </select>
                         </th>
                         <td>
@@ -95,8 +94,6 @@
 
 </div>
 
-<!-- ================= MODAL ================= -->
-
 <div class="modal fade" id="jobModal" tabindex="-1">
 
     <div class="modal-dialog modal-dialog-centered">
@@ -109,49 +106,80 @@
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
             </div>
 
-            <div class="modal-body">
+            <form [formGroup]="addNewJob" (ngSubmit)="SaveNewJob()">
+                <div class="modal-body">
 
-                <form [formGroup]="addNewJob" (ngSubmit)="SaveNewJob()">
                     <div class="mb-3">
                         <label class="form-label">Job Title</label>
                         <input formControlName="jobTitle" type="text" class="form-control"
                             placeholder="Enter Job Title">
+
+                        @if(addNewJob.controls['jobTitle'].invalid &&
+                        addNewJob.controls['jobTitle'].touched){
+                        <small class="text-danger">
+                            Job Title is required
+                        </small>
+                        }
                     </div>
                     <div class="mb-3">
-                        <select class="form-select" formControlName="jobLocation">
+                        <!-- <select class="form-select" formControlName="jobLocation">
                             <option value="" selected disabled>Select Location</option>
                             <option [value]="item?.value" *ngFor="let item of jobLocationRes"> {{item.value}}
                             </option>
+                        </select> -->
+                        <select class="form-select" formControlName="jobLocation">
+                            <option selected value="" disabled>Select Location</option>
+
+                            @for (item of jobLocationRes(); track item.value) {
+                            <option [value]="item.id">
+                                {{ item.value }}
+                            </option>
+                            }
                         </select>
+                        @if(addNewJob.controls['jobLocation'].invalid &&
+                        addNewJob.controls['jobLocation'].touched){
+                        <small class="text-danger">
+                            Job Location is required
+                        </small>
+                        }
                     </div>
-                    <div class="mb-3">
+                    <!-- <div class="mb-3">
                         <label class="form-label">Status</label>
                         <select class="form-select" formControlName="status">
                             <option value="Active">Active</option>
                             <option value="Pending">Pending</option>
                             <option value="Closed">Closed</option>
                         </select>
-                    </div>
+                        @if(addNewJob.controls['status'].invalid &&
+                        addNewJob.controls['status'].touched){
+                        <small class="text-danger">
+                            Job status is required
+                        </small>
+                        }
+                    </div> -->
                     <div class="mb-3">
                         <label class="form-label">CTC</label>
-                        <input formControlName="status" type="text" class="form-control" placeholder="Enter Salary">
+                        <input formControlName="ctc" type="text" class="form-control" placeholder="Enter Salary">
+
+                        @if(addNewJob.controls['ctc'].invalid &&
+                        addNewJob.controls['ctc'].touched){
+                        <small class="text-danger">
+                            Ctc is required
+                        </small>
+                        }
                     </div>
-                </form>
 
-            </div>
 
-            <div class="modal-footer">
-
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                    Cancel
-                </button>
-
-                <button type="submit" class="btn btn-success">
-                    Save Job
-                </button>
-
-            </div>
-
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        Cancel
+                    </button>
+                    <button type="submit" class="btn btn-success">
+                        Save Job
+                    </button>
+                </div>
+            </form>
         </div>
 
     </div>

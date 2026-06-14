@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { LoaderService } from '../../shared/helperService/loader-service';
 import { ApiService } from '../../services/api.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import ValidateForm from '../../helpers/ValidateForm';
 
 
 interface jobLocations {
@@ -17,7 +18,8 @@ interface jobLocations {
 })
 export class Home {
 
-  jobLocationRes: jobLocations[] | undefined;
+  // jobLocationRes: jobLocations[] | undefined;
+  jobLocationRes = signal<jobLocations[]>([]);
   addNewJob: FormGroup;
   constructor(private $loader: LoaderService,
     private apiService: ApiService, public fb: FormBuilder) {
@@ -25,7 +27,7 @@ export class Home {
     this.addNewJob = this.fb.group({
       jobTitle: ['', Validators.required],
       jobLocation: ['', Validators.required],
-      status: ['', Validators.required],
+      status: [''],
       ctc: ['', Validators.required],
     })
     this.getJobLocations();
@@ -34,16 +36,45 @@ export class Home {
   getJobLocations() {
     this.apiService.getJobLocation().subscribe({
       next: (res) => {
-        this.jobLocationRes = res;
+        // this.jobLocationRes = res;
+        this.jobLocationRes.set(res ?? []);
       },
       error: (err) => {
-        this.jobLocationRes = [];
+        // this.jobLocationRes = [];
+        this.jobLocationRes.set([]);
       }
     })
   }
 
   SaveNewJob(): void {
-    console.log("add new Job form value",this.addNewJob.value());
+    if (this.addNewJob.valid) {
+
+      console.log("add new Job form value", this.addNewJob.value);
+
+      let payload = {
+        locationId: this.addNewJob.value.jobLocation,
+        jobDetails: this.addNewJob.value.jobTitle,
+        ctc: this.addNewJob.value.ctc,
+        status: this.addNewJob.value.status
+      };
+      this.apiService.addNewJob(payload).subscribe({
+        next: (res) => {
+          if (res.status == 200) {
+            alert(res.message);
+          }
+          else {
+            alert(res.message);
+          }
+        },
+        error: (err) => {
+          alert(err.err.message);
+        }
+      })
+    }
+    else {
+      this.addNewJob.markAllAsTouched();
+      // ValidateForm.validateAllFormFields(this.addNewJob);
+    }
   }
 
   // loadLoader(): void {
